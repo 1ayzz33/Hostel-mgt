@@ -43,11 +43,12 @@ export function formatDate(value, options = {}) {
   if (!value) return '—';
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '—';
+  const { year, ...rest } = options;
   return new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
     month: 'short',
-    year: options.year === false ? undefined : 'numeric',
-    ...options,
+    year: year === false ? undefined : (year || 'numeric'),
+    ...rest,
   }).format(date);
 }
 
